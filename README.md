@@ -1,2 +1,3 @@
-# Cenozoic-fossils-Madagascar
-Code to download the Cenozoic fossil records from Madagascar
+# Fossils-Madagascar
+Code to download the Upper Cretaceous and Cenozoic terrestrial fossil records from Madagascar available on the PaleoBiology Database (https://paleobiodb.org/)
+using the paleobioDB R package (Varela et al. 2015) https://onlinelibrary.wiley.com/doi/10.1111/ecog.01154
