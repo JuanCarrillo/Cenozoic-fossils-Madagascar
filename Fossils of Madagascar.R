@@ -36,3 +36,33 @@ hist(fossils$early_age.1,
 # save the file of Cretaceous and Cenozoic fossils from Madagascar
 write.csv(fossils,file="Fossils_Madagascar.csv",row.names=FALSE)
 
+# Get only the fossil occurrences in Madagascar of fossils that are identified
+# to at the genus and species level
+install.packages("tidyverse")
+library(tidyverse)
+
+# Check the number of occurrences identified to the genus and species level
+table(fossils$taxon_rank)
+
+# Get only the fossil occurrences identified to the genus and/or species level
+fossils_genus<-fossils%>%
+  filter(taxon_rank%in%c("species","genus"))
+
+table(fossils_genus$taxon_rank)
+str(fossils_genus)
+
+# Download fossil occurrences worldwide of fossil genera recorded in Madagascar
+# List of fossil genera recorded in Madagascar
+fossil_genera_Madagascar<-levels(as.factor(fossils_genus$genus))
+
+?pbdb_occurrences
+genera_worldwide<-pbdb_occurrences(base_name=fossil_genera_Madagascar,
+        max_ma=145,min_ma=0,timerule="contain",
+        show=c("ident","phylo","coords","loc","paleoloc","time","strat","stratext"),
+        vocab="pbdb",ident="latest",limit="all")
+str(genera_worldwide)
+
+# save the file of Cretaceous and Cenozoic fossils occurrences worldwide 
+# of genera that are recorded in from Madagascar
+write.csv(genera_worldwide,file="Genera_records_world.csv",row.names=FALSE)
+
